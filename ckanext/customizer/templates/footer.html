@@ -1,5 +1,8 @@
 {% ckan_extends %}
 
-
 {% block footer_lang %}
+	{% if not h.customizer_remove_lang_selection() %}
+		{{ super() }}
+	{% endif %}
 {% endblock %}
+
