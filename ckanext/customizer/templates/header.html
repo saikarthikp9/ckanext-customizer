@@ -1,0 +1,9 @@
+{% ckan_extends %}
+
+{% block header_site_navigation_tabs %}
+
+    <li><a href="{{ h.url_for('dataset.search') }}">Datasets</a></li>
+    <li><a href="{{ h.url_for('organization.index') }}">{{ h.customizer_organization_name_plural() }}</a></li>
+    <li><a href="{{ h.url_for('group.index') }}">{{ h.customizer_group_name_plural() }}</a></li>
+    <li><a href="{{ h.url_for('home.about') }}">About</a></li>
+{% endblock %}
