@@ -9,12 +9,16 @@ import time
 import babel.messages.pofile
 import ckan
 import click
+from .helpers import get_env_var
+
+# check required env vars
+
 
 vowels = ['a','e','i','o','u']
 branding = OrderedDict()
-branding["group"] = os.getenv("CUSTOMIZER_GROUP_NAME").lower()
+branding["group"] = get_env_var("CUSTOMIZER_GROUP_NAME").lower()
 branding["Group"] = branding["group"].capitalize()
-branding["organization"] = os.getenv("CUSTOMIZER_ORGANIZATION_NAME").lower()
+branding["organization"] = get_env_var("CUSTOMIZER_ORGANIZATION_NAME").lower()
 branding["Organization"] = branding["organization"].capitalize()
 article = "a"
 if branding["organization"][0] in vowels:
@@ -47,7 +51,7 @@ def replace_branding(msgid):
 
 
 @click.command()
-def i18n_hack():
+def customizer_apply():
     src = pathlib2.Path(pkg_resources.resource_filename("ckan.i18n",
                                                        "ckan.pot"))
     # load file and replace known strings
@@ -91,4 +95,4 @@ def i18n_hack():
     os.system(cmd_string)
 
 def get_commands():
-    return [i18n_hack]
+    return [customizer_apply]
