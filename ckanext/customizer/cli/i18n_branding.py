@@ -9,7 +9,7 @@ import time
 import babel.messages.pofile
 import ckan
 import click
-from .helpers import get_env_var
+from ckanext.customizer.helpers import get_env_var
 
 # check required env vars
 
@@ -51,7 +51,7 @@ def replace_branding(msgid):
 
 
 @click.command()
-def customizer_apply():
+def customizer_i18n_branding():
     src = pathlib2.Path(pkg_resources.resource_filename("ckan.i18n",
                                                        "ckan.pot"))
     # load file and replace known strings
@@ -91,8 +91,5 @@ def customizer_apply():
         pkg_resources.resource_filename("ckan", "public/base/i18n/en_GB.js"))
     shutil.copy(str(sjs), str(sjs.with_name("en_US.js")))
 
-    cmd_string = "ckan config-tool {} ckan.locales_offered=en_US".format(os.getenv("CKAN_INI"))
-    os.system(cmd_string)
-
-def get_commands():
-    return [customizer_apply]
+    #cmd_string = "ckan config-tool {} ckan.locales_offered=en_US".format(os.getenv("CKAN_INI"))
+    #os.system(cmd_string)
