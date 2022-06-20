@@ -3,6 +3,7 @@ import ckan.plugins.toolkit as toolkit
 from .cli import get_commands
 import os
 import re
+from .helpers import get_env_var
 
 # accepts a word(noun) as an argument and returns the pluralized word 
 def pluralize_word(word):
@@ -21,18 +22,26 @@ def pluralize_word(word):
         return word + 's'
 
 def get_customizer_group_name_plural():
-    word = os.getenv("CUSTOMIZER_GROUP_NAME").lower().capitalize()
+    print("get_customizer_group_name_plural")
+    word = get_env_var("CUSTOMIZER_GROUP_NAME").lower().capitalize()
     return pluralize_word(word)
 
 def get_customizer_organization_name_plural():
-    word = os.getenv("CUSTOMIZER_ORGANIZATION_NAME").lower().capitalize()
+    word = get_env_var("CUSTOMIZER_ORGANIZATION_NAME").lower().capitalize()
     return pluralize_word(word)
 
 def get_customizer_organization_description():
-    return os.getenv("CUSTOMIZER_ORGANIZATION_DESCRIPTION")
+    return get_env_var("CUSTOMIZER_ORGANIZATION_DESCRIPTION")
 
 def get_customizer_group_description():
-    return os.getenv("CUSTOMIZER_GROUP_DESCRIPTION")
+    return get_env_var("CUSTOMIZER_GROUP_DESCRIPTION")
+
+def get_customizer_remove_lang_selection():
+    return (os.getenv("CUSTOMIZER_REMOVE_LANG_SELECTION", "False").lower().capitalize() == "True")
+
+def get_customizer_remove_socials():
+    print("get_customizer_remove_socials")
+    return (os.getenv("CUSTOMIZER_REMOVE_SOCIALS", "False").lower().capitalize() == "True")
 
 class CustomizerPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
@@ -43,8 +52,7 @@ class CustomizerPlugin(plugins.SingletonPlugin):
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
-        toolkit.add_resource('fanstatic',
-            'customizer')
+        toolkit.add_resource('fanstatic', 'customizer')
 
     # IClick
     def get_commands(self):
@@ -53,10 +61,6 @@ class CustomizerPlugin(plugins.SingletonPlugin):
     # Template helper functions
 
     def get_helpers(self):
-        '''Register the most_popular_groups() function above as a template
-        helper function.
-
-        '''
         # Template helper function names should begin with the name of the
         # extension they belong to, to avoid clashing with functions from
         # other extensions.
@@ -65,4 +69,6 @@ class CustomizerPlugin(plugins.SingletonPlugin):
             'customizer_organization_name_plural': get_customizer_organization_name_plural,
             'customizer_organization_description': get_customizer_organization_description,
             'customizer_group_description': get_customizer_group_description,
+            'customizer_remove_lang_selection': get_customizer_remove_lang_selection,
+            'customizer_remove_socials': get_customizer_remove_socials,
         }

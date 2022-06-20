@@ -2,5 +2,7 @@
 
 
 {% block social %}
+	{% if not h.customizer_remove_socials() %}
+		{{ super() }}
+	{% endif %}
 {% endblock %}
-
