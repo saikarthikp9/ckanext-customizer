@@ -2,7 +2,16 @@
 
 # ckanext-customizer
 
-**TODO:** Put a description of your extension here:  What does it do? What features does it have? Consider including some screenshots or embedding a video!
+This CKAN extension provides a way to customize CKAN components (mostly visual) using environment variables. This makes production deployments a breeze.
+
+## Features
+
+- change name of terms (english only): "organization" and "group"
+- add custom helper texts for organization and group
+- (optional) remove social media
+- (optional) remove the language selection
+
+**TODO:** include some screenshots or embedding a video!
 
 
 ## Requirements
@@ -19,15 +28,7 @@ Compatibility with core CKAN versions:
 | 2.6 and earlier | not tested    |
 | 2.7             | not tested    |
 | 2.8             | not tested    |
-| 2.9             | not tested    |
-
-Suggested values:
-
-* "yes"
-* "not tested" - I can't think of a reason why it wouldn't work
-* "not yet" - there is an intention to get it working
-* "no"
-
+| 2.9             | yes           |
 
 ## Installation
 
@@ -57,15 +58,16 @@ To install ckanext-customizer:
      sudo service apache2 reload
 
 
-## Config settings
+## Config settings: Environment Variables
 
-None at present
-
-**TODO:** Document any optional config settings here. For example:
-
-	# The minimum number of hours to wait before re-checking a resource
-	# (optional, default: 24).
-	ckanext.customizer.some_setting = some_default_value
+| Variable Name                        | Required | Default  |
+|--------------------------------------|---------------------|
+| CUSTOMIZER_ORGANIZATION_NAME         | Y        | N/A      |
+| CUSTOMIZER_ORGANIZATION_DESCRIPTION  | Y        | N/A      |
+| CUSTOMIZER_GROUP_NAME                | Y        | N/A      |
+| CUSTOMIZER_GROUP_DESCRIPTION         | Y        | N/A      |
+| CUSTOMIZER_REMOVE_LANG_SELECTION     | N        | False    |
+| CUSTOMIZER_REMOVE_SOCIALS            | N        | False    |
 
 
 ## Developer installation
