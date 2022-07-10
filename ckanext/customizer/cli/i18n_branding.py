@@ -16,9 +16,9 @@ from ckanext.customizer.helpers import get_env_var
 
 vowels = ['a','e','i','o','u']
 branding = OrderedDict()
-branding["group"] = get_env_var("CUSTOMIZER_GROUP_NAME").lower()
+branding["group"] = get_env_var("CUSTOMIZER_GROUP_NAME", "group").lower()
 branding["Group"] = branding["group"].capitalize()
-branding["organization"] = get_env_var("CUSTOMIZER_ORGANIZATION_NAME").lower()
+branding["organization"] = get_env_var("CUSTOMIZER_ORGANIZATION_NAME", "organization").lower()
 branding["Organization"] = branding["organization"].capitalize()
 article = "a"
 if branding["organization"][0] in vowels:

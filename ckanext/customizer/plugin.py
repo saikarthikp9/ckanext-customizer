@@ -1,7 +1,6 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from .cli import get_commands
-import os
 import re
 from .helpers import get_env_var
 
@@ -21,27 +20,31 @@ def pluralize_word(word):
         # Else just add 's' to the word passed.
         return word + 's'
 
+CUSTOMIZER_GROUP_NAME = get_env_var("CUSTOMIZER_GROUP_NAME", "group").lower().capitalize()
+CUSTOMIZER_GROUP_NAME_PLURAL = pluralize_word(CUSTOMIZER_GROUP_NAME)
 def get_customizer_group_name_plural():
-    print("get_customizer_group_name_plural")
-    word = get_env_var("CUSTOMIZER_GROUP_NAME").lower().capitalize()
-    return pluralize_word(word)
+    return CUSTOMIZER_GROUP_NAME_PLURAL
 
+CUSTOMIZER_ORGANIZATION_NAME = get_env_var("CUSTOMIZER_ORGANIZATION_NAME", "organization").lower().capitalize()
+CUSTOMIZER_ORGANIZATION_NAME_PLURAL = pluralize_word(CUSTOMIZER_ORGANIZATION_NAME)
 def get_customizer_organization_name_plural():
-    word = get_env_var("CUSTOMIZER_ORGANIZATION_NAME").lower().capitalize()
-    return pluralize_word(word)
+    return CUSTOMIZER_ORGANIZATION_NAME_PLURAL
 
+CUSTOMIZER_ORGANIZATION_DESCRIPTION = get_env_var("CUSTOMIZER_ORGANIZATION_DESCRIPTION", "CKAN Organisations are used to create, manage and publish collections of datasets. Users can have different roles within an Organisation, depending on their level of authorisation to create, edit and publish.")
 def get_customizer_organization_description():
-    return get_env_var("CUSTOMIZER_ORGANIZATION_DESCRIPTION")
+    return CUSTOMIZER_ORGANIZATION_DESCRIPTION
 
+CUSTOMIZER_GROUP_DESCRIPTION = get_env_var("CUSTOMIZER_GROUP_DESCRIPTION", "You can use CKAN Groups to create and manage collections of datasets. This could be to catalogue datasets for a particular project or team, or on a particular theme, or as a very simple way to help people find and search your own published datasets.")
 def get_customizer_group_description():
-    return get_env_var("CUSTOMIZER_GROUP_DESCRIPTION")
+    return CUSTOMIZER_GROUP_DESCRIPTION
 
+CUSTOMIZER_REMOVE_LANG_SELECTION = (get_env_var("CUSTOMIZER_REMOVE_LANG_SELECTION", "False").lower().capitalize() == "True")
 def get_customizer_remove_lang_selection():
-    return (os.getenv("CUSTOMIZER_REMOVE_LANG_SELECTION", "False").lower().capitalize() == "True")
+    return CUSTOMIZER_REMOVE_LANG_SELECTION
 
+CUSTOMIZER_REMOVE_SOCIALS = (get_env_var("CUSTOMIZER_REMOVE_SOCIALS", "False").lower().capitalize() == "True")
 def get_customizer_remove_socials():
-    print("get_customizer_remove_socials")
-    return (os.getenv("CUSTOMIZER_REMOVE_SOCIALS", "False").lower().capitalize() == "True")
+    return CUSTOMIZER_REMOVE_SOCIALS
 
 class CustomizerPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
