@@ -1,17 +1,14 @@
-[![Tests](https://github.com/saikarthikp9/ckanext-customizer/workflows/Tests/badge.svg?branch=main)](https://github.com/saikarthikp9/ckanext-customizer/actions)
-
 # ckanext-customizer
 
-This CKAN extension provides a way to customize CKAN components (mostly visual) using environment variables. This makes production deployments a breeze.
+This CKAN extension provides a way to customize a CKAN implementation using environment variables that are not already supported by [default](http://docs.ckan.org/en/latest/maintaining/configuration.html#environment-variables) or by [ckanext-envvars](https://github.com/okfn/ckanext-envvars). The goal is to make production deployments a breeze.
 
 ## Features
 
-- change name of terms (english only): "organization" and "group"
-- add custom helper texts for organization and group
-- (optional) remove social media
-- (optional) remove the language selection
+- change name of terms: "organization" and "group" (will handle plurals, capitalizations, etc.) and add custom helper texts for the same
+- remove social media buttons
+- remove the language selection from footer
 
-**TODO:** include some screenshots or embedding a video!
+Please request a feature by creating an issue in this repository.
 
 
 ## Requirements
@@ -22,7 +19,7 @@ Compatibility with core CKAN versions:
 | --------------- | ------------- |
 | 2.6 and earlier | not tested    |
 | 2.7             | not tested    |
-| 2.8             | not tested    |
+| 2.8             | yes           |
 | 2.9             | yes           |
 
 ## Installation
@@ -48,7 +45,7 @@ To install ckanext-customizer:
 
         ckan -c /etc/ckan/default/ckan.ini customizer-i18n-branding
 
-4. Restart CKAN server. For example if you've deployed CKAN with Apache on Ubuntu:
+5. Restart CKAN server. For example if you've deployed CKAN with Apache on Ubuntu:
 
      sudo service apache2 reload
 
@@ -57,13 +54,17 @@ To install ckanext-customizer:
 
 | Name                                 | Required | Default  |
 | ------------------------------------ | -------- | -------- |
-| CUSTOMIZER_ORGANIZATION_NAME         | Y        | N/A      |
-| CUSTOMIZER_ORGANIZATION_DESCRIPTION  | Y        | N/A      |
-| CUSTOMIZER_GROUP_NAME                | Y        | N/A      |
-| CUSTOMIZER_GROUP_DESCRIPTION         | Y        | N/A      |
+| CUSTOMIZER_ORGANIZATION_NAME         | N        | organization      |
+| CUSTOMIZER_ORGANIZATION_DESCRIPTION  | N        | CKAN Organisations are used to create, manage and publish collections of datasets. Users can have different roles within an Organisation, depending on their level of authorisation to create, edit and publish. |
+| CUSTOMIZER_GROUP_NAME                | N        | group      |
+| CUSTOMIZER_GROUP_DESCRIPTION         | N        | You can use CKAN Groups to create and manage collections of datasets. This could be to catalogue datasets for a particular project or team, or on a particular theme, or as a very simple way to help people find and search your own published datasets. |
 | CUSTOMIZER_REMOVE_LANG_SELECTION     | N        | False    |
 | CUSTOMIZER_REMOVE_SOCIALS            | N        | False    |
 
+## Limitations
+
+- "organization" and "group" terms will be changed only in English. So it is recommended to set env var CUSTOMIZER_REMOVE_LANG_SELECTION=True
+- the paths "/organization" and "/group" remains unchanged
 
 ## Developer installation
 
@@ -115,6 +116,7 @@ If ckanext-customizer should be available on PyPI you can follow these steps to 
        git tag 0.0.1
        git push --tags
 
-## License
+## References
 
-[AGPL](https://www.gnu.org/licenses/agpl-3.0.en.html)
+- [CKAN repository](https://github.com/ckan/ckan)
+- [Helm Chart for CKAN](https://github.com/keitaroinc/ckan-helm)
