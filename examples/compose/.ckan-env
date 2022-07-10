@@ -1,0 +1,47 @@
+# Runtime configuration of CKAN enabled through ckanext-envvars
+# Information about how it works: https://github.com/okfn/ckanext-envvars
+# Note that variables here take presedence over build/up time variables in .env
+
+# Set to true to disable CKAN from starting and serve a maintenance page
+MAINTENANCE_MODE=false
+
+CUSTOMIZER_ORGANIZATION_NAME=organization
+CUSTOMIZER_ORGANIZATION_DESCRIPTION=CKAN Organisations are used to create, manage and publish collections of datasets. Users can have different roles within an Organisation, depending on their level of authorisation to create, edit and publish.
+CUSTOMIZER_GROUP_NAME=group
+CUSTOMIZER_GROUP_DESCRIPTION=You can use CKAN Groups to create and manage collections of datasets. This could be to catalogue datasets for a particular project or team, or on a particular theme, or as a very simple way to help people find and search your own published datasets.
+CUSTOMIZER_REMOVE_LANG_SELECTION=True
+CUSTOMIZER_REMOVE_SOCIALS=True
+
+# General Settings
+CKAN_SITE_ID=default
+CKAN_SITE_URL=http://localhost:5000
+CKAN_PORT=5000
+CKAN_MAX_UPLOAD_SIZE_MB=10
+# CKAN Plugins
+CKAN__PLUGINS=envvars customizer datastore
+# CKAN requires storage path to be set in order for filestore to be enabled
+CKAN__STORAGE_PATH=/srv/app/data
+CKAN__WEBASSETS__PATH=/srv/app/data/webassets
+# SYSADMIN settings, a sysadmin user is created automatically with the below credentials
+CKAN_SYSADMIN_NAME=sysadmin
+CKAN_SYSADMIN_PASSWORD=password
+CKAN_SYSADMIN_EMAIL=sysadmin@ckantest.com
+
+# Email settings
+CKAN_SMTP_SERVER=smtp.corporateict.domain:25
+CKAN_SMTP_STARTTLS=True
+CKAN_SMTP_USER=user
+CKAN_SMTP_PASSWORD=pass
+CKAN_SMTP_MAIL_FROM=ckan@localhost
+
+# Datapusher configuration
+CKAN__DATAPUSHER__URL=http://datapusher:8000
+CKAN__DATAPUSHER__CALLBACK_URL_BASE=http://ckan:5000/
+
+# Solr configuration
+CKAN_VERSION=2.9.5
+CKAN_CORE_NAME=ckan
+
+# CKAN user permissions
+CKAN__AUTH__USER_CREATE_GROUPS = true
+CKAN__AUTH__USER_CREATE_ORGANIZATIONS = true
