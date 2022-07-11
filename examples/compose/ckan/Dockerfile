@@ -34,8 +34,7 @@ USER ckan
 FROM ghcr.io/saikarthikp9/ckan:2.9.5
 
 ENV APP_DIR /srv/app
-# ENV CKAN__PLUGINS envvars customizer
-ENV CKAN__PLUGINS envvars customizer datastore
+ENV CKAN__PLUGINS envvars image_view text_view recline_view datastore datapusher customizer
 
 # Switch to the root user
 USER root
