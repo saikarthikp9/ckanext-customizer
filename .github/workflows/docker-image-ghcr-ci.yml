@@ -54,4 +54,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            CKANEXT_CUSTOMIZER_GIT_TAG=${{ steps.meta.outputs.tags }}
+            CKANEXT_CUSTOMIZER_GIT_TAG=${{ steps.meta.outputs.version }}

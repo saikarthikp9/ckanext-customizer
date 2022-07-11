@@ -18,6 +18,9 @@ RUN apk add --no-cache \
         libffi-dev
 
 ARG CKANEXT_CUSTOMIZER_GIT_TAG=0.1.2
+
+RUN echo "ARG CKANEXT_CUSTOMIZER_GIT_TAG:$CKANEXT_CUSTOMIZER_GIT_TAG"
+
 # Fetch and build the custom CKAN extensions
 RUN pip wheel --wheel-dir=/wheels git+https://github.com/saikarthikp9/ckanext-customizer@${CKANEXT_CUSTOMIZER_GIT_TAG}#egg=ckanext-customizer && \
     pip wheel --wheel-dir=/wheels -r https://raw.githubusercontent.com/saikarthikp9/ckanext-customizer/${CKANEXT_CUSTOMIZER_GIT_TAG}/requirements.txt && \
